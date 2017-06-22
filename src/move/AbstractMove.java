@@ -24,7 +24,8 @@ import java.awt.Point;
 /**
  * move.Move - Created on 13-3-17
  *
- * [description]
+ * Stores a move action and can transform it to a
+ * string that can be returned to the game engine
  *
  * @author Jim van Eeden - jim@riddles.io
  */

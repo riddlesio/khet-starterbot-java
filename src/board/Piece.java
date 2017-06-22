@@ -35,25 +35,27 @@ public class Piece {
     private PieceOrientation orientation;
     private Point coordinate;
 
-    Piece(PieceType type, String playerId, PieceOrientation orientation, Point coordinate) {
+    Piece(PieceType type, String playerId, PieceOrientation orientation) {
         this.type = type;
         this.playerId = playerId;
         this.orientation = orientation;
-        this.coordinate = coordinate;
     }
 
-    public static Piece parsePiece(String string, Point coordinate) {
+    public static Piece fromString(String string) {
         if (string.length() != 4) {
             return null;
         }
 
-        PieceType type =PieceType.fromString(string.substring(0, 2));
+        PieceType type = PieceType.fromString(string.substring(0, 2));
         String playerId = string.substring(2, 3);
         PieceOrientation orientation = PieceOrientation.fromString(string.substring(3));
 
-        return new Piece(type, playerId, orientation, coordinate);
+        return new Piece(type, playerId, orientation);
     }
 
+    public void setCoordinate(Point coordinate) {
+        this.coordinate = coordinate;
+    }
 
     public PieceType getType() {
         return this.type;

@@ -72,11 +72,7 @@ public class BotParser {
                         this.currentState.setTimebank(Integer.parseInt(parts[2]));
                         AbstractMove move = this.bot.doMove(this.currentState);
 
-                        if (move != null) {
-                            System.out.println(move.toString());
-                        } else {
-                            System.out.println(MoveType.PASS.toString());
-                        }
+                        System.out.println(move.toString());
                     }
                     break;
                 default:

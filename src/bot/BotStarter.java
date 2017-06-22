@@ -46,6 +46,12 @@ public class BotStarter {
         this.random = new Random();
     }
 
+    /**
+     * You should edit this method to make your bot smarter.
+     * Currently randomly performs either a piece move or a piece turn.
+     * @param state The current bot state
+     * @return A random move
+     */
     public AbstractMove doMove(BotState state) {
         AbstractMove move = null;
         double pMoveType = this.random.nextDouble();

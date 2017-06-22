@@ -27,7 +27,8 @@ import move.TurnType;
 /**
  * board.Board - Created on 13-3-17
  *
- * [description]
+ * Parses and stores all information about the game board.
+ * Calculations concerning the board are also performed here.
  *
  * @author Jim van Eeden - jim@riddles.io
  */
@@ -59,13 +60,17 @@ public class Board {
             fieldString = fieldString.trim();
 
             this.boardLayout[x][y] = fieldString.substring(0, 1);
-            Piece piece = Piece.parsePiece(fieldString.substring(1), new Point(x, y));
+            Piece piece = Piece.fromString(fieldString.substring(1));
+
+            if (piece != null) {
+                piece.setCoordinate(new Point(x, y));
+
+                if (piece.getPlayerId().equals(this.myId)) {
+                    this.myPieces.add(piece);
+                }
+            }
 
             this.fields[x][y] = piece;
-
-            if (piece != null && piece.getPlayerId().equals(this.myId)) {
-                this.myPieces.add(piece);
-            }
 
             if (++x == this.width) {
                 x = 0;
@@ -82,13 +87,13 @@ public class Board {
             for (int dx = -1; dx <= 1; dx++) {
                 if (dy == 0 && dx == 0) continue;
 
-                Point validPoint = new Point(coordinate.x + dx, coordinate.y + dy);
+                Point newPoint = new Point(coordinate.x + dx, coordinate.y + dy);
 
-                if (!isPointInBounds(validPoint) || !isPointOnLegalField(validPoint)) continue;
+                if (!isPointInBounds(newPoint) || !isPointOnLegalField(newPoint)) continue;
 
-                Piece occupying = this.fields[validPoint.x][validPoint.y];
+                Piece occupying = this.fields[newPoint.x][newPoint.y];
                 if (occupying == null || canPieceSwitch(piece, occupying)) {
-                    validPointsForPiece.add(validPoint);
+                    validPointsForPiece.add(newPoint);
                 }
             }
         }
